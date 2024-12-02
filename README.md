@@ -44,8 +44,8 @@ $ npm run dev
 
 サーバーが立ち上がるので動作しているかを以下パスで確認してください。
 
-- https://[GitHub codespaceのホスト名]/api/v1
-- https://[GitHub codespaceのホスト名]/api/docs
+- https://[GitHub codespaceのプレビューURL]/api/v1
+- https://[GitHub codespaceのプレビューURL]/api/docs
 
 ### フロントエンド（frontend/）
 
@@ -57,6 +57,6 @@ $ npm run dev
 
 サーバーが立ち上がるので動作しているかを以下パスで確認してください。
 
-- https://[GitHub codespaceのホスト名]/
-- https://[GitHub codespaceのホスト名]/api/v1
-- https://[GitHub codespaceのホスト名]/api/docs
+- https://[GitHub codespaceのプレビューURL]/
+- https://[GitHub codespaceのプレビューURL]/api/v1
+- https://[GitHub codespaceのプレビューURL]/api/docs
