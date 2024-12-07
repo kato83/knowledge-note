@@ -58,31 +58,3 @@ paths:
                 example:
                   { "message": "OK" }
                   # message: "OK" # yaml形式な代替表記
-  /api/v1/users:
-    delete:
-      tags:
-        - development
-      summary: "開発用 ユーザー全削除"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-      responses:
-        200:
-          description: "削除成功時のレスポンス"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "OK"
-                example:
-                  { "message": "OK" }
-                  # message: "OK" # yaml形式な代替表記
-tags:
-  - name: development
-    description: 開発用途のAPI群です
