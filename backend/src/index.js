@@ -3,15 +3,33 @@ import swagger from 'swagger-ui-express';
 import yaml from 'yaml';
 import fs from 'node:fs';
 import { PrismaClient } from '@prisma/client';
-import { hashSync } from 'bcrypt';
+import { hashSync, compareSync } from 'bcrypt';
+import session from 'express-session';
 
 const openapi = yaml.parse(fs.readFileSync('./src/openapi.yaml', 'utf8'));
 const prisma = new PrismaClient();
+/** 1時間のミリ秒 */
+const _1h = 1000 * 60 * 60;
 
 // Expressアプリケーションを作成
 const app = express()
   // リクエストボディのJSONをパースするミドルウェア
   .use(express.json())
+  .use(session({
+    // 本来は secret というプロパティの通りでこの値は
+    // サーバーの環境変数なりで、コードに残さない形にする
+    secret: 'lk;w34$lfaJAfb',
+    proxy: true,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      // https で常時接続するなら secure: true としたほうが良い
+      // secure: true,
+      httpOnly: true,
+      // 1時間保持
+      maxAge: _1h,
+    },
+  }))
   .use('/api/docs', swagger.serve, swagger.setup(openapi));
 
 app.post('/api/v1/login', (req, res) => {
