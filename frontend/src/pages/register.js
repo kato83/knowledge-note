@@ -15,11 +15,10 @@ export const register = () => {
       const button = e.target.querySelector('button[type="submit"]');
       button.disabled = true;
       const data = Object.fromEntries(new FormData(e.target).entries());
-      fetch('http://localhost:5173/api/v1/register', {
+      fetch('/api/v1/register', {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(data),
         method: 'POST',
-        mode: 'cors',
       })
         .then(res =>
           new Promise((resolve, reject) => res.ok ? resolve(res.json()) : reject(res.text())))
