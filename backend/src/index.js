@@ -55,7 +55,18 @@ app.post('/api/v1/register', async (req, res) => {
         password: hashSync(password, 10),
       }
     })
-    .then(record => res.status(200).json({ isSuccess: true, data: record }))
+    .then(record => new Promise((res, rej) => {
+      req.session.regenerate((err) => {
+        if (err) return rej(err);
+        return res(record);
+      });
+    }))
+    .then(record => {
+      req.session.user = record;
+      res.cookie('user.id', record.id, { maxAge: _1h });
+      res.cookie('user.username', record.username, { maxAge: _1h });
+      res.json({ isSuccess: true, message: 'OK' });
+    })
     .catch(err => {
       console.error(err);
       res.status(500).json({ isSuccess: false, message: '不明なエラーが発生しました' })
