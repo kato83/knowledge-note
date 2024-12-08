@@ -7,6 +7,18 @@
     sans-serif;
 }
 
+body:not(.is-guest) .is-loggedin,
+body:not(.is-guest) .is-guest,
+body:not(.is-loggedin) .is-loggedin,
+body:not(.is-loggedin) .is-guest {
+  display: none;
+}
+
+body.is-guest .is-guest,
+body.is-loggedin .is-loggedin {
+  display: inherit;
+}
+
 header {
   display: flex;
   flex-wrap: wrap;

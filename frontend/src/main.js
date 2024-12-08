@@ -1,27 +1,30 @@
 import { router } from './utils/router';
-import mustache from 'mustache';
-// Viteのルールとして、インポートする対象のファイルをそのまま取得するためには相対パスの末尾に"?raw"を付与する必要がある
-// この場合、テンプレートのHTMLファイルをそのまま取得したいので"?raw"を末尾に付与している
-// 参照: https://ja.vite.dev/guide/assets.html#importing-asset-as-string
-import html from './templates/sample.html?raw';
 import { login } from './pages/login';
 import { register } from './pages/register';
+import { guestCheck } from './utils/guest-check';
+import { getCookieMap } from './utils/cookie';
+import { home } from './pages/home';
 
-const test = () => document
-  .querySelector('#app')
-  .insertAdjacentHTML('afterbegin', mustache.render(html, { hoge: 'HOME' }));
-
-router(
+const init = () => router(
   [
-    { path: '/', fn: test },
+    { path: '/', fn: home },
     { path: '/users/:id', fn: (id) => console.log(id) },
     { path: '/articles/:id', fn: ({ id, detail, aa }) => console.log(id, detail, aa) },
-    { path: '/register', fn: register },
-    { path: '/login', fn: login },
+    { path: '/register', fn: guestCheck(register) },
+    { path: '/login', fn: guestCheck(login) },
     { path: '/logout', fn: () => { } },
   ],
   {
     onNotFound: () => console.log('NOT FOUND'),
     onError: (e) => console.error(e),
+    onAfter: () => {
+      const bodyClassList = document.body.classList;
+      const isLoggedin = Boolean(getCookieMap().get('user.id'));
+      bodyClassList.add(isLoggedin ? 'is-loggedin' : 'is-guest');
+      bodyClassList.remove(isLoggedin ? 'is-guest' : 'is-loggedin');
+    }
   },
 );
+
+window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('popstate', init);

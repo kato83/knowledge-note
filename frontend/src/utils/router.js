@@ -8,6 +8,9 @@ const pathParse = (str) => str
   .slice(1)
   .filter(Boolean);
 
+let _routes = null;
+let _on = null;
+
 /**
  * URLに応じて呼び出す関数を切り替えるルーター関数
  * @param { { path: string, fn: Function }[] } routes パスとパスにマッチした際に実行する関数をペアにしたオブジェクトリテラル
@@ -18,6 +21,8 @@ const pathParse = (str) => str
  * - onAfter: 後処理
  */
 export const router = (routes, on) => {
+  _routes = routes;
+  _on = on;
   try {
     const { pathname } = location;
     /** @type { string[] } 現在アクセスしているURLを配列に加工したもの */
@@ -75,4 +80,10 @@ export const router = (routes, on) => {
     if (typeof on.onError === 'function') on.onError(e);
     else console.error(e);
   }
+};
+
+export const navigate = (url) => {
+  document.querySelector('#app').innerHTML = '';
+  history.pushState({}, '', url);
+  router(_routes, _on);
 };

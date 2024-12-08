@@ -17,8 +17,10 @@
     </h1>
     <nav>
       <ul>
-        <li><a href="/register" id="header-register">新規登録</a></li>
-        <li><a href="/login" id="header-login">ログイン</a></li>
+        <li class="is-guest"><a href="/register">新規登録</a></li>
+        <li class="is-guest"><a href="/login">ログイン</a></li>
+        <li class="is-loggedin"><a href="/mypage">マイページ</a></li>
+        <li class="is-loggedin"><a href="/api/v1/logout">ログアウト</a></li>
       </ul>
     </nav>
   </header>
@@ -28,8 +30,10 @@
       <ul>
         <li><a href="/about">Knowledge noteについて</a></li>
         <li><a href="/contact">お問い合わせ</a></li>
-        <li><a href="/register">新規登録</a></li>
-        <li><a href="/login">ログイン</a></li>
+        <li class="is-guest"><a href="/register">新規登録</a></li>
+        <li class="is-guest"><a href="/login">ログイン</a></li>
+        <li class="is-loggedin"><a href="/register">マイページ</a></li>
+        <li class="is-loggedin"><a href="/api/v1/logout">ログアウト</a></li>
       </ul>
     </nav>
     <small>&copy; 2024- Knowledge note</small>

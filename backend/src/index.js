@@ -32,11 +32,31 @@ const app = express()
   }))
   .use('/api/docs', swagger.serve, swagger.setup(openapi));
 
-app.post('/api/v1/login', (req, res) => {
-  // ログイン処理は省略
+app.post('/api/v1/login', async (req, res) => {
   console.log('Login request received:', req.body);
-  // JSON形式でレスポンスを送信
-  res.json({ message: 'OK' });
+  const { username, password } = req.body;
+  await prisma.user
+    .findFirstOrThrow({ where: { username } })
+    .then(record => new Promise((res, rej) => compareSync(password, record.password)
+      ? res(record)
+      : rej()))
+    .then(record => new Promise((res, rej) => {
+      req.session.regenerate((err) => {
+        if (err) return rej(err);
+        return res(record);
+      });
+    }))
+    .then(record => {
+      console.debug(record);
+      req.session.user = record;
+      res.cookie('user.id', record.id, { maxAge: _1h });
+      res.cookie('user.username', record.username, { maxAge: _1h });
+      res.json({ message: 'OK' });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(400).json({ message: 'ログイン失敗: IDまたはパスワードが無効です。' });
+    });
 });
 
 // ユーザー登録処理
@@ -73,15 +93,30 @@ app.post('/api/v1/register', async (req, res) => {
     });
 });
 
-// 開発用: ユーザー全削除の処理
-app.delete('/api/v1/users', async (req, res) => {
-  await prisma.user
-    .deleteMany()
-    .then(record => res.status(200).json({ isSuccess: true, data: record }))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ isSuccess: false, message: '不明なエラーが発生しました' })
+// ログアウト処理
+app.get('/api/v1/logout', async (req, res) => {
+  // ログイン状態を破棄する
+  req.session.destroy();
+  res.cookie('user.username', '', { maxAge: 0 });
+  res.cookie('user.id', '', { maxAge: 0 });
+  res.redirect('/');
+});
+
+app.get('/api/v1/user/me', async (req, res) => {
+  if (req.session.user) {
+    res.cookie('user.id', req.session.user.id, { maxAge: _1h });
+    res.cookie('user.username', req.session.user.username, { maxAge: _1h });
+    res.json({
+      isSuccess: true,
+      'user.id': req.session.user.id,
+      'user.username': req.session.user.username
     });
+  } else {
+    res.status(400).json({
+      isSuccess: false,
+      message: 'Not login'
+    });
+  }
 });
 
 // サーバーを起動
