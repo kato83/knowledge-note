@@ -12,7 +12,6 @@ const init = () => router(
     { path: '/articles/:id', fn: ({ id, detail, aa }) => console.log(id, detail, aa) },
     { path: '/register', fn: guestCheck(register) },
     { path: '/login', fn: guestCheck(login) },
-    { path: '/logout', fn: () => { } },
   ],
   {
     onNotFound: () => console.log('NOT FOUND'),
