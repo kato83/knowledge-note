@@ -9,7 +9,7 @@ const init = () => router(
   [
     { path: '/', fn: home },
     { path: '/users/:id', fn: (id) => console.log(id) },
-    { path: '/articles/:id', fn: ({ id, detail, aa }) => console.log(id, detail, aa) },
+    { path: '/articles/:id', fn: ({ id }) => { /* 未実装 */ } },
     { path: '/register', fn: guestCheck(register) },
     { path: '/login', fn: guestCheck(login) },
   ],
