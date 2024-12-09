@@ -5,4 +5,4 @@
 export const getCookieMap = () => new Map(document.cookie
   .split(';')
   .map(data => data.split('=')
-    .map(data => decodeURIComponent(data))));
+    .map(data => decodeURIComponent(data.trim()))));
