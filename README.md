@@ -22,7 +22,7 @@
 
 主体的に情報収集してトラブルシュート能力やドキュメント等のキャッチアップする能力を鍛えることを目的としています。
 
-## セットアップ
+## 初回のみのセットアップ
 
 まずは当リポジトリをあなたのリポジトリにインポートするところから始めてください。
 
@@ -31,6 +31,10 @@
 インポート方法の参考: [GitHub Importer でリポジトリをインポートする - GitHub Docs](https://docs.github.com/ja/migrations/importing-source-code/using-github-importer/importing-a-repository-with-github-importer)
 
 インポートしたリポジトリにて Codespace を起動し、以下の操作を実行してください。
+
+## 初回以降のセットアップ
+
+以下は授業始まる毎に実施してください。
 
 ### バックエンド (backend/)
 
