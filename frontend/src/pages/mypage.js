@@ -4,9 +4,16 @@ import mustache from 'mustache';
 // 参照: https://ja.vite.dev/guide/assets.html#importing-asset-as-string
 import html from '../templates/mypage.html?raw';
 
-export const mypage = () => {
+export const mypage = async () => {
+  const response = await fetch('/api/v1/user/me')
+    .then(response => response.json());
+
+  const user = response.user;
   const app = document.querySelector('#app');
-  app.innerHTML = mustache.render(html, { });
+  // HTML上で {{ email }} と書くとJSの `user.email` の値に置き換わる
+  // 例: <div>{{ username }}</div> → <div>ユーザー名</div>
+  // mustache.render の第2引数でプロパティとそれの値をセットしてテンプレートに渡しつつHTML出力ができる
+  app.innerHTML = mustache.render(html, { email: user.email, username: user.username });
 
   const username = document.querySelector('input[name="username"]');
   const email = document.querySelector('input[name="email"]');
@@ -22,13 +29,17 @@ export const mypage = () => {
 
     fetch('/api/v1/user-update', {
       method: 'POST',
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      headers: {
+        'content-type': 'application/json',
+      }
     })
       .then(res => res.json())
       .then(res => {
         document.querySelector('form strong').textContent = res.message;
+        // 5秒後にメッセージを消す
+        setTimeout(() => document.querySelector('form strong').textContent = '', 5000);
+
       });
   });
-  
-  
 };
