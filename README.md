@@ -24,13 +24,15 @@
 
 ## 初回のみのセットアップ
 
-まずは当リポジトリをあなたのリポジトリにインポートするところから始めてください。
+まずは当リポジトリをフォークするところから始めてください。
 
-インポート対象のリポジトリ: https://github.com/kato83/knowledge-note.git
+フォーク対象のリポジトリ: https://github.com/kato83/knowledge-note
 
-インポート方法の参考: [GitHub Importer でリポジトリをインポートする - GitHub Docs](https://docs.github.com/ja/migrations/importing-source-code/using-github-importer/importing-a-repository-with-github-importer)
+- フォーク方法の参考
+  - [リポジトリをフォークする - GitHub Docs](https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
+  - [フォークについて - GitHub Docs](https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/working-with-forks/about-forks)
 
-インポートしたリポジトリにて Codespace を起動し、以下の操作を実行してください。
+フォークしたリポジトリにて Codespace を起動し、以下の操作を実行してください。
 
 ## 初回以降のセットアップ
 
