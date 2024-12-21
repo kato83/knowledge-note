@@ -28,12 +28,9 @@
 
 <h4>課題5: 47都道府県をmustache構文のループを用いて実装してください</h4>
 <div>prefectures 変数で47都道府県の文字列配列は定義しているので、それを用いたループ処理をmustache構文で記述してください</div>
-<div>optionのvalue属性の値 1～9 は2桁のゼロ埋め（01, 02...09）を行うようにしてください</div>
+<div>optionのvalue属性の値 1～9 は2桁のゼロ埋め（01, 02...09）を行うようにしてください（JS側の調整が必要です）。</div>
 <h6>回答5: ※以下のselect, option要素のHTMLを参考にしつつ、書き換えて作成してください</h6>
 <select name="prefectures" id="prefectures">
-  {{#prefectures}}
-    <option value="{{zeroPaddingValue}}">{{label}}</option>
-  {{/prefectures}}
   <option value="01">北海道</option>
   <option value="02">青森県</option>
   <option>...中略...</option>
