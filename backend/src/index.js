@@ -238,7 +238,14 @@ app.get('/api/v1/articles/:uuid', async (req, res) => {
   await prisma.article
     .findUniqueOrThrow({
       where: { id: uuid },
-      include: { user: { select: { username: true } } },
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true
+          }
+        }
+      },
     })
     // 正常に取得できた場合
     .then(record => res.json({ isSuccess: true, item: record }))
