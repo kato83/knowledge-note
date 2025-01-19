@@ -253,6 +253,9 @@ paths:
                       user:
                         type: object
                         properties:
+                          id:
+                            type: string
+                            example: "94fbd3f5-e175-4817-8da9-9ccac2a0a956"
                           username:
                             type: string
                             example: "example"
@@ -265,7 +268,10 @@ paths:
                       "body": "# Markdown形式のテキスト\n\n本文",
                       "createdAt": "2024-12-14T06:49:23.653Z",
                       "updatedAt": "2024-12-14T06:49:23.653Z",
-                      "user": { "username": "example" },
+                      "user": { 
+                        "id": "94fbd3f5-e175-4817-8da9-9ccac2a0a956",
+                        "username": "example" 
+                      },
                     }
                   }
 
