@@ -64,6 +64,12 @@ app.post('/api/v1/login', async (req, res) => {
     });
 });
 
+// お問い合わせ処理
+app.post('/api/v1/contact', async (req, res) => {
+  console.log(req.body);
+  res.json({ isSuccess: true, message: '保存成功' });
+});
+
 // ユーザー登録処理
 app.post('/api/v1/register', async (req, res) => {
   console.log(req.body);
